@@ -160,6 +160,15 @@ function addItem() {
             spanElement.innerText.trim().replace(/&nbsp;/g, "") != "" &&
             spanElement.innerText.trim().replace(/&nbsp;/g, "").length <= 50
           ) {
+            if (
+              spanText.trim().replace(/&nbsp;/g, "") !=
+              spanElement.innerText.trim().replace(/&nbsp;/g, "")
+            ) {
+              let editSpanElement = document.createElement("span");
+              editSpanElement.innerHTML = "Edited";
+              editSpanElement.classList.add("edited");
+              divElement.after(editSpanElement);
+            }
             // Create a new instance of the date object to specify when the task has been done
             const newDate = new Date();
             // Create a new div element
