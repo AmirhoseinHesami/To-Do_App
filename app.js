@@ -160,6 +160,10 @@ function addItem() {
             spanElement.innerText.trim().replace(/&nbsp;/g, "") != "" &&
             spanElement.innerText.trim().replace(/&nbsp;/g, "").length <= 50
           ) {
+            spanElement.innerHTML = spanElement.innerHTML
+              .trim()
+              .replace(/&nbsp;/g, "");
+
             if (
               spanText.trim().replace(/&nbsp;/g, "") !=
               spanElement.innerText.trim().replace(/&nbsp;/g, "")
@@ -191,9 +195,6 @@ function addItem() {
             pDoneElement.classList.add("new-date");
             // Delete All Spaces Before And After The Text
             divDateWrapper.after(divDoneElement);
-            spanElement.innerHTML = spanElement.innerHTML
-              .trim()
-              .replace(/&nbsp;/g, "");
             // Add Font Class To The Element Permanently
             liElement.classList.add("font");
             // OR
@@ -212,6 +213,11 @@ function addItem() {
       "click",
       function () {
         // ********* Fisrt Implementation ********* //
+        // This Part Has Nothing To Do With The Project Implementation
+        // OR Logic It Is Just A Comment For Myself, It Is Actully A
+        // Prototype Implementation Of The Edit Option To Make Sure
+        // That It Only Works And It Was Based On Browser Prompt Window
+
         // -Based On Browser Prompt Window- \\
         // (Current Status = "Disable")
         // if (liElement.classList != "font") {
@@ -221,12 +227,12 @@ function addItem() {
         //   }
         //   spanElement.innerHTML = spanValue;
         // }
+        // --------------------------------------------------------------- \\
+        // --------------------------------------------------------------- \\
 
         // ********* Second Implementation ********* //
         // +Based On HTML Contenteditable Attribute- \\
         // (Current Status = "Enable")
-
-        // ---------------------------------------------------------------
 
         //--> Logic: Edit button has 3 steps <--//
         /* 1: fisrt step is when you click on the edit button of each
@@ -253,6 +259,10 @@ function addItem() {
                 spanElement.innerText.trim().replace(/&nbsp;/g, "") != "" &&
                 spanElement.innerText.trim().replace(/&nbsp;/g, "").length <= 50
               ) {
+                spanElement.innerHTML = spanElement.innerHTML
+                  .trim()
+                  .replace(/&nbsp;/g, "");
+
                 if (
                   spanText.trim().replace(/&nbsp;/g, "") !=
                   spanElement.innerText.trim().replace(/&nbsp;/g, "")
@@ -262,9 +272,6 @@ function addItem() {
                   editSpanElement.classList.add("edited");
                   divElement.after(editSpanElement);
                 }
-                spanElement.innerHTML = spanElement.innerHTML
-                  .trim()
-                  .replace(/&nbsp;/g, "");
                 spanElement.setAttribute("contenteditable", false);
               }
             }
@@ -275,6 +282,10 @@ function addItem() {
               spanElement.innerText.trim().replace(/&nbsp;/g, "") != "" &&
               spanElement.innerText.trim().replace(/&nbsp;/g, "").length <= 50
             ) {
+              spanElement.innerHTML = spanElement.innerHTML
+                .trim()
+                .replace(/&nbsp;/g, "");
+
               if (
                 spanText.trim().replace(/&nbsp;/g, "") !=
                 spanElement.innerText.trim().replace(/&nbsp;/g, "")
@@ -284,9 +295,6 @@ function addItem() {
                 editSpanElement.classList.add("edited");
                 divElement.after(editSpanElement);
               }
-              spanElement.innerHTML = spanElement.innerHTML
-                .trim()
-                .replace(/&nbsp;/g, "");
               spanElement.setAttribute("contenteditable", false);
             }
           } else {
