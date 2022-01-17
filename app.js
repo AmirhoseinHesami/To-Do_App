@@ -1,10 +1,7 @@
-//--> Variables <--\\
-// Essential Components \\
+//--> Variables: Essential Components <--\\
 
-// Root Element, Here Is Where Everything Will Append To
 const rootElement = document.querySelector(".root");
 // Starting Point: starting template and main
-// elements and components to work with later
 const template = `
 <div class="container">
   <h1>To-Do App</h1>
@@ -22,10 +19,10 @@ const template = `
 </div>
 `;
 
-////////////////// --Manipulate The DOM And Target Elements-- \\\\\\\\\\\\\\\
-
 // Add Template To The DOM \\
 rootElement.innerHTML = template;
+
+////////////////// --Manipulate The DOM And Target Elements-- \\\\\\\\\\\\\\\
 
 // Target Elements \\
 const textInput = document.querySelector(".input-text");
@@ -40,95 +37,38 @@ function addItem() {
   let textEnterd = textInput.value.trim();
 
   if (textEnterd.length < 1) {
-    // If The text Input Is Empoty it clears the input box,
-    // And Does Not Allow To Append, Nothing As An Element To The DOM,
     textInput.value = "";
   } else {
     // Create A Date Object Instance
     const date = new Date();
-
-    //--> Create Elements or Components To Work With <--\\
-
     // The li Element Itself, It's A Wrapper Or Container
     let liElement = document.createElement("li");
-    // A General Container To Seprate Element From Horizontal Line
-    let divElement = document.createElement("div");
-    // Span: Text Container
-    let spanElement = document.createElement("span");
-    // Div: Buttons Container
-    let divContainerElement = document.createElement("div");
-    // Done Button
-    let doneButton = document.createElement("button");
-    // Edit Button
-    let editButton = document.createElement("button");
-    // Delete Button
-    let deleteButton = document.createElement("button");
-    // div: Contains Date
-    let divDateWrapper = document.createElement("div");
-    // Paragraph: Before Date
-    let pDateElement = document.createElement("p");
-    // Span: Inside Date
-    let spanDateElement = document.createElement("span");
+    liElement.innerHTML = `
+      <div class="main-container">
+        <span>${textEnterd}</span>
+        <div class="btn-group">
+          <button class="done">✔</button>
+          <button class="delete">✖</button>
+          <button class="edit">✏️</button>
+        </div>
+      </div>
+      <div class="p-date">
+        <span>Created: </span>
+        <p class="date">${date.toDateString()} - ${date.toLocaleTimeString()}</p>
+      </div>`;
 
-    //--> Add Elements or Components To DOM and Also Add Their Classes: "IN-ORDER " <--\\
+    //--> Add Elements or Components To DOM and Also Add Their Classes <--\\
+    ulElement.append(liElement);
 
-    // Set The Text Input Value To The Span Element Which Basically Is A Text
-    // Container Or Content Container, Element
-    spanElement.append(textEnterd);
-    // Append The Span Element Inside The div Element
-    divElement.append(spanElement);
-    // Add "btn-group" Class To The Div Container Which Holds Butons
-    divContainerElement.classList.add("btn-group");
-    // Add "main-container" Class To The Div Container Which Holds Other Elements
-    divElement.classList.add("main-container");
-    // Add The "✔" Sign To Done Button,
-    // Add The "done" Class To The Done Button,
-    // Append Done Button To The Div Container
-    doneButton.append("✔");
-    doneButton.classList.add("done");
-    divContainerElement.appendChild(doneButton);
-    // Add The "✖" Sign To Done Button,
-    // Add The "delete" Class To The Done Button,
-    // Append Done Button To The Div Container
-    deleteButton.append("✖");
-    deleteButton.classList.add("delete");
-    divContainerElement.appendChild(deleteButton);
-    // Add The "✏️" Sign To Done Button,
-    // Add The "edit" Class To The Done Button,
-    // Append Done Button To The Div Container
-    editButton.append("✏️");
-    editButton.classList.add("edit");
-    divContainerElement.appendChild(editButton);
-    // Append Div Container To div Element
-    divElement.append(divContainerElement);
-    // Div Element = append "span" with text inside it
-    divDateWrapper.append(spanDateElement);
-    // Fill span with "Created: " Text
-    spanDateElement.innerHTML = "Created: ";
-    // Add "p-date" class to it
-    divDateWrapper.classList.add("p-date");
-    // Append "span" Element to the p element
-    divDateWrapper.append(pDateElement);
-    // Add the current time to the span element, the time is based on when you created the item
-    // Set span innerHTML To Date Object
-    pDateElement.innerHTML = `${date.toDateString()} - ${date.toLocaleTimeString()}`;
-    // Add "date" Class To Span Element
-    pDateElement.classList.add("date");
-    // Append Div Element Which Contains Other Elements except Horizotal Line To The li Element
-    liElement.append(divElement);
-    // Append P Element To li Element
-    liElement.append(divDateWrapper);
-    // Finally Append The Entire li Element To The ul Element Container
-    ulElement.appendChild(liElement);
-
-    // Set The Clear Button Dispaly To Block Whenever The Fisrt Element Created By Adding A Class \\
     clearButton.classList.add("clear-appear");
-
-    // Clear The Input \\
     textInput.value = "";
 
-    // Put span Text Inside a variable \\
-    let spanText = spanElement.innerText;
+    let deleteButton = liElement.querySelector(".delete");
+    let doneButton = liElement.querySelector(".done");
+    let editButton = liElement.querySelector(".edit");
+    let spanElement = liElement.querySelector("span");
+    let spanText = liElement.querySelector("span").innerText;
+    let divElement = liElement.querySelector(".main-container");
 
     //-->  Delete-Key To Delete An Element From DOM Completely <--//
     deleteButton.addEventListener(
@@ -143,6 +83,7 @@ function addItem() {
     );
 
     //-->  Done-Key To Show An Element Has Been Done In Fact It Toggles The Element On And Off <--//
+
     doneButton.addEventListener(
       "click",
       function () {
@@ -165,8 +106,8 @@ function addItem() {
               .replace(/&nbsp;/g, "");
 
             if (
-              spanText.trim().replace(/&nbsp;/g, "") !=
-              spanElement.innerText.trim().replace(/&nbsp;/g, "")
+              spanElement.innerText.trim().replace(/&nbsp;/g, "") !=
+              spanText.trim().replace(/&nbsp;/g, "")
             ) {
               let editSpanElement = document.createElement("span");
               editSpanElement.innerHTML = "Edited";
@@ -177,24 +118,16 @@ function addItem() {
             const newDate = new Date();
             // Create a new div element
             let divDoneElement = document.createElement("div");
-            // Create a new p element
-            let pDoneElement = document.createElement("p");
-            // Create a new span element
-            let spanDoneElement = document.createElement("span");
-            // Pdiv Element = append "pDoneElement" with text inside it
-            divDoneElement.append(spanDoneElement);
-            // Add "done-date" class to the new p element
-            divDoneElement.classList.add("done-date");
-            // Add "done-date" class to the new p element
-            spanDoneElement.innerHTML = "Done: ";
-            // append new span element to the it's parent (new p element)
-            divDoneElement.append(pDoneElement);
-            // Set new Span innerHTML To Date Object
-            pDoneElement.innerHTML = `${newDate.toDateString()} - ${newDate.toLocaleTimeString()}`;
-            // Add "date" Class To new Span Element
-            pDoneElement.classList.add("new-date");
-            // Delete All Spaces Before And After The Text
-            divDateWrapper.after(divDoneElement);
+
+            let content = `
+            <div class="done-date">
+              <span>Done: </span>
+              <p class="new-date">${newDate.toDateString()} - ${newDate.toLocaleTimeString()}</p>
+            </div>
+            `;
+
+            divDoneElement.innerHTML = content;
+            liElement.append(divDoneElement);
             // Add Font Class To The Element Permanently
             liElement.classList.add("font");
             // OR
@@ -264,8 +197,8 @@ function addItem() {
                   .replace(/&nbsp;/g, "");
 
                 if (
-                  spanText.trim().replace(/&nbsp;/g, "") !=
-                  spanElement.innerText.trim().replace(/&nbsp;/g, "")
+                  spanElement.innerText.trim().replace(/&nbsp;/g, "") !=
+                  spanText.trim().replace(/&nbsp;/g, "")
                 ) {
                   let editSpanElement = document.createElement("span");
                   editSpanElement.innerHTML = "Edited";
@@ -287,8 +220,8 @@ function addItem() {
                 .replace(/&nbsp;/g, "");
 
               if (
-                spanText.trim().replace(/&nbsp;/g, "") !=
-                spanElement.innerText.trim().replace(/&nbsp;/g, "")
+                spanElement.innerText.trim().replace(/&nbsp;/g, "") !=
+                spanText.trim().replace(/&nbsp;/g, "")
               ) {
                 let editSpanElement = document.createElement("span");
                 editSpanElement.innerHTML = "Edited";

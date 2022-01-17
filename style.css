@@ -8,6 +8,7 @@ html {
   box-sizing: border-box !important;
   background-attachment: fixed;
   background-size: cover;
+  scroll-behavior: smooth;
 }
 
 .root {
@@ -179,12 +180,11 @@ button {
   flex: 1;
 }
 
-.input-text:invalid:required {
+.input-text:invalid {
   box-shadow: rgb(255 255 255) 0px 0px 0px 2px;
   background: rgb(255 255 255);
 }
 
-.input-text:focus,
 .input-text:valid {
   box-shadow: rgb(0 149 255) 0px 0px 10px 1px;
   color: rgb(0 149 255);
